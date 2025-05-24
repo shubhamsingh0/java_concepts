@@ -1,6 +1,7 @@
 package com.stream;
 
 import com.learn.javaconcepts.Artist;
+import com.models.Model;
 import com.models.Person;
 import com.models.Product;
 import com.models.Student;
@@ -14,6 +15,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.function.ToIntFunction;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.util.GeneratorUtils.*;
@@ -25,8 +27,10 @@ public class StreamLearn {
 
     public static void main(String[] args) throws IOException {
 //        streamStaticMethods();
-        streamAbstractMethods();
+//        streamAbstractMethods();
+        System.out.println(fifthNearestPalindromeNumber(45,5));
     }
+
 
     public static void streamAbstractMethods() throws IOException {
 //        Modifier & Type || Method                                                                                        || Description
@@ -263,5 +267,34 @@ public class StreamLearn {
         System.out.println(personLists);
     }
 
+    public static Long fifthNearestPalindromeNumber(long n,int kPosition) {
+
+        Map<Long, Long> palindromes = generatePalindromes(n);
+        Map<Long, List<Map.Entry<Long, Long>>> distanceToPalindromeMap = palindromes.entrySet().stream().collect(Collectors.groupingBy(Map.Entry::getValue));
+
+//        distanceToPalindromeMap.entrySet().stream().sorted(Comparator.comparing(Map.Entry::getKey)).toList().get(kPosition);
+        Map.Entry<Long, List<Map.Entry<Long, Long>>> actualValue = distanceToPalindromeMap.entrySet().stream().sorted(Map.Entry.comparingByKey(Comparator.naturalOrder())).toList().get(kPosition-1);
+       return  actualValue.getValue().stream().map(Map.Entry::getKey).sorted(Comparator.reverseOrder()).findFirst().get();
+    }
+
+    private static Map<Long, Long> generatePalindromes(long n) {
+        Map<Long, Long> map = new TreeMap<>();
+
+        for (long i=11; i<2*n;i++) {
+            if(isPalindrome(i)) {
+                map.put(i, Math.abs(n-i));
+            }
+        }
+        return map;
+    }
+
+    private static boolean isPalindrome(long i) {
+        String a = String.valueOf(i);
+        String b = new String("");
+        for(int e= a.length()-1;e>=0;e--) {
+            b = b.concat(String.valueOf(a.charAt(e)));
+        }
+        return a.equals(b);
+    }
 
 }
