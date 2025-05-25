@@ -76,10 +76,11 @@ public class GeneratorUtils {
             timestamps.add(time1);
             timestamps.add(time2);
             p.setOrderModificationTimestamp(timestamps);
-            Double price1 = Math.random()*10000*3;
-            Double price2 = Math.random()*100000*2;
+            Double price1 = Math.random()*100*3;
+            Double price2 = Math.random()*100*2;
             p.setPrices(List.of(price1,price2));
             p.setOrderModificationTimestamp(timestamps);
+            p.setQuantity((long) (Math.random()*10*3));
             productList.add(p);
         }
         return productList;

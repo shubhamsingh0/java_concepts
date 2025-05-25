@@ -10,5 +10,6 @@ public class Product {
     private String productName;
     private double price;
     private List<Timestamp> orderModificationTimestamp;
+    private long quantity;
     private List<Double> prices;
 }

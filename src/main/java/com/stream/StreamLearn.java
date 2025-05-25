@@ -1,7 +1,7 @@
 package com.stream;
 
 import com.learn.javaconcepts.Artist;
-import com.models.Model;
+import com.models.ExportList;
 import com.models.Person;
 import com.models.Product;
 import com.models.Student;
@@ -13,6 +13,8 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
 import java.util.function.Predicate;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
@@ -27,7 +29,7 @@ public class StreamLearn {
 
     public static void main(String[] args) throws IOException {
 //        streamStaticMethods();
-//        streamAbstractMethods();
+        streamAbstractMethods();
         System.out.println(fifthNearestPalindromeNumber(45,5));
     }
 
@@ -67,18 +69,22 @@ public class StreamLearn {
 //        void            || forEachOrdered(Consumer<? super T> action)                                                    || Performs an action for each element of this stream, in the encounter order of the stream if the stream has a defined encounter order.
 //        Optional<T>     || max(Comparator<? super T> comparator)                                                         || Returns the maximum element of this stream according to the provided Comparator.
 //        Optional<T>     || min(Comparator<? super T> comparator)                                                         || Returns the minimum element of this stream according to the provided Comparator.
+//        long            || count()                                                                                       || Returns the count of elements in this stream.
+//        Object[]        || toArray()                                                                                     || Returns an array containing the elements of this stream.
+//        <A> A[]         || toArray(IntFunction<A[]> generator)                                                           || Returns an array containing the elements of this stream, using the provided generator function to allocate the returned array, as well as any additional arrays that might be required for a partitioned execution or for resizing.
 //        Optional<T>     || reduce(BinaryOperator<T> accumulator)                                                         || Performs a reduction on the elements of this stream, using an associative accumulation function, and returns an Optional describing the reduced value, if any.
 //        T               || reduce(T identity, BinaryOperator<T> accumulator)                                             || Performs a reduction on the elements of this stream, using the provided identity value and an associative accumulation function, and returns the reduced value.
 //        <U> U           || reduce(U identity, BiFunction<U, ? super T, U> accumulator, BinaryOperator<U> combiner)       || Performs a reduction on the elements of this stream, using the provided identity, accumulation and combining functions.
-//        Object[]        || toArray()                                                                                     || Returns an array containing the elements of this stream.
-//        <A> A[]         || toArray(IntFunction<A[]> generator)                                                           || Returns an array containing the elements of this stream, using the provided generator function to allocate the returned array, as well as any additional arrays that might be required for a partitioned execution or for resizing.
-//        long            || count()                                                                                       || Returns the count of elements in this stream.
-//        <R> R           || collect(Supplier<R> supplier, BiConsumer<R, ? super T> accumulator, BiConsumer<R,R> combiner) || Performs a mutable reduction operation on the elements of this stream.
 //        <R,A> R         || collect(Collector<? super T, A, R> collector)                                                 || Performs a mutable reduction operation on the elements of this stream using a Collector.
+//        <R> R           || collect(Supplier<R> supplier, BiConsumer<R, ? super T> accumulator, BiConsumer<R,R> combiner) || Performs a mutable reduction operation on the elements of this stream.
+
+        // Data
 
         List<Person> personList = readPersonData();
         List<Product> productList = generateProductData();
         List<Student> studentList = generateStudentData();
+
+        // Intermediate Operation
 
         // filter - Intermediate Operation - non-interfering, stateless - Filter out all Person objects who live in "New York".
         Predicate<Person> filterByCityNewYork = (i) -> i.getAddress().contains("New York");
@@ -133,6 +139,8 @@ public class StreamLearn {
         System.out.println(personList.stream().filter(person->person.getAge()>30).peek(person -> System.out.println(person.getFirstName())).limit(10).toList());
 
 
+        // Stateful Intermediate Operation
+
         // distinct() - Stateful Intermediate Operation - From a list of emails (with duplicates), get a list of unique emails.
         List<String> emails = new ArrayList<>();
         emails.add("john@gmail.com");
@@ -182,7 +190,103 @@ public class StreamLearn {
         System.out.println(personList.stream().filter(person->person.getBirthDate().after(Date.from(Instant.parse("2024-09-12T12:00:00Z")))).findFirst());
 
 
-        //
+        // Terminal Operations
+
+        // forEach(Consumer<? super T>) - Terminal Operation - non-interfering - Print all Person emails.
+        personList.stream().forEach(person-> System.out.println(person.getEmail()));
+
+        // forEachOrdered(Consumer<? super T> action> - Terminal Operation - non-interfering - Print all Person first names in the order they appear in the list.
+        personList.stream().forEachOrdered(person -> System.out.println(person.getFirstName()));
+
+        // max(Comparator<? super T> - Terminal Operation - non-interfering, stateless - Find the Person with the maximum age.
+        System.out.println(personList.stream().max(Comparator.comparing(Person::getAge)).get());
+
+        // min(Comparator<? super T> - Terminal Operation - non-interfering, Stateless - Find the Person with the minimum age.
+        System.out.println(personList.stream().min(Comparator.comparing(Person::getAge)).get());
+
+        // count - Terminal Operation - equivalent to .mapToLong(i->1L).sum() - Count how many Person objects have a non-null phone number.
+        System.out.println(personList.stream().filter(person -> Objects.nonNull(person.getPhoneNumber())).count());
+
+        // toArray() - Terminal Operation - Convert a stream of Person objects to an array.
+        System.out.println(Arrays.toString(personList.stream().toArray()));
+
+        // toArray(IntFunction<? super T> generator) - Terminal Operation - Convert a stream of Person objects to an array.
+        System.out.println(Arrays.toString(personList.stream().toArray(Person[]::new)));
+
+        // reduce(BinaryOperator<T> accumulator - Terminal Operation - accumulator-> an associative, non-interfering, Stateless function for combining 2 values.
+        // .reduce(BinaryOperator) is more general. It combines elements using any associative operation [a op (b op c)] == [(a op b) op c] (not just max/min), such as sum, product, or custom logic.
+        System.out.println(productList.stream().filter(product -> product.getProductName().equalsIgnoreCase("Laptop")).map(Product::getPrice).reduce(Double::sum));
+        System.out.println(productList.stream().filter(product -> product.getProductName().equalsIgnoreCase("Laptop")).map(Product::getPrice).reduce((product1,product2)->product1+product2));
+        // If you want the product name with the highest total sales (price * quantity)
+        Map<String, List<Product>> as = productList.stream().collect(Collectors.groupingBy(Product::getProductName));
+        Set<Map.Entry<String, List<Product>>> entries = as.entrySet();
+        Map<String, Double> max = new HashMap<>();
+        for(Map.Entry<String, List<Product>> entry:entries){
+            max.put(entry.getKey(), entry.getValue().stream().map(pr->pr.getPrice()*pr.getQuantity()).reduce(Double::sum).get());
+        }
+        System.out.println(max.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).findFirst().get());
+        // Optimized Code: Find product name with highest total sales (price * quantity)
+        Map.Entry<String, Double> maxEntry = productList.stream()
+                .collect(Collectors.groupingBy(
+                        Product::getProductName,
+                        Collectors.summingDouble(p -> p.getPrice() * p.getQuantity())
+                ))
+                .entrySet()
+                .stream()
+                .max(Map.Entry.comparingByValue())
+                .orElse(null);
+        System.out.println(maxEntry);
+        // If you want the single product instance with the highest sales
+        BinaryOperator<Product> productBinaryOperator = (p1, p2) ->
+                (p1.getPrice() * p1.getQuantity() >= p2.getPrice() * p2.getQuantity()) ? p1 : p2;
+        Optional<Product> topProduct = productList.stream()
+                .reduce(productBinaryOperator
+                );
+        System.out.println(topProduct.get());
+
+        // reduce(T identity, BinaryOperator<T> accumulator) identity is initial value
+        // You have a list of Product objects, each with a price (double) and a quantity (int). Calculate the total
+        // revenue for all products, but only for products whose price is above 100 and quantity is at least 5.
+        double ans = productList.stream().filter(product -> product.getQuantity()>=5 && product.getPrice()>100)
+                .mapToDouble(pr->pr.getPrice()*pr.getQuantity())
+                .reduce(0.0,Double::sum);
+        System.out.println(ans);
+
+        // reduce(U identity, BiFunction<U,? super T, U> accumulator, BinaryOperator<U> combiner) => it a combination of .map + .collect
+        // You want to combine stream elements into a single result using an associative operation (e.g., sum, product, min, max, custom logic).
+        // The result is a single value (e.g., a number, a string, or a single object).
+        // Example: Summing numbers, finding the product, concatenating strings.
+        BiFunction<ExportList, Product, ExportList> accumulator = (exportList, product) -> {
+            exportList.getTotalItems().add(product.getProductName());
+            exportList.setTotalPrice(exportList.getTotalPrice() + product.getPrice());
+            return exportList;
+        };
+        // Combiner: merges two ExportList objects
+        BinaryOperator<ExportList> combiner = (e1, e2) -> {
+            e1.getTotalItems().addAll(e2.getTotalItems());
+            e1.setTotalPrice(e1.getTotalPrice() + e2.getTotalPrice());
+            return e1;
+        };
+        // Usage
+        ExportList result = productList.stream()
+                .reduce(new ExportList(new HashSet<>(), 0.0), accumulator, combiner);
+        System.out.println(result);
+
+        // collect(Collelctor<? super T, A, R colelctor>)
+        // T: type of stream elements
+        // A: mutable accumulation type [intermediate container]
+        // R: result type [Final output]
+        Set<Person> uniquePerson = personList.stream().collect(Collectors.toSet());
+        System.out.println(uniquePerson);
+
+        // collect(Supplier<? super T> supplier, BiConsumer<R, ? super T> accumulator, BiConsumer<R,R> combiner)
+        // You want to transform the stream into a mutable container or a complex result (e.g., List, Set, Map, custom objects).
+        // The result is a collection or a more complex structure, not just a single value.
+        // Example: Collecting elements into a list, grouping by a property, partitioning, summarizing statistics.
+        HashMap<String, String> mappedRes = personList.stream().collect(HashMap<String, String>::new,
+                (hashMap, person2) -> hashMap.put(person2.getFirstName(), person2.getSecondName()),
+                ((hashMap, hashMap2) -> hashMap.putAll(hashMap2)));
+        System.out.println(mappedRes);
 
     }
 
@@ -274,7 +378,13 @@ public class StreamLearn {
 
 //        distanceToPalindromeMap.entrySet().stream().sorted(Comparator.comparing(Map.Entry::getKey)).toList().get(kPosition);
         Map.Entry<Long, List<Map.Entry<Long, Long>>> actualValue = distanceToPalindromeMap.entrySet().stream().sorted(Map.Entry.comparingByKey(Comparator.naturalOrder())).toList().get(kPosition-1);
-       return  actualValue.getValue().stream().map(Map.Entry::getKey).sorted(Comparator.reverseOrder()).findFirst().get();
+        Long ans = 0L;
+
+        // 3 ways to achieve same result
+        ans = actualValue.getValue().stream().map(Map.Entry::getKey).sorted(Comparator.reverseOrder()).findFirst().get();
+        ans = actualValue.getValue().stream().sorted(Comparator.comparing(Map.Entry::getKey)).map(Map.Entry::getKey).findFirst().get();
+        ans = actualValue.getValue().stream().map(Map.Entry::getKey).max(Comparator.naturalOrder()).get(); // preferred
+        return  ans;
     }
 
     private static Map<Long, Long> generatePalindromes(long n) {
