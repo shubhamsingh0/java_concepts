@@ -35,51 +35,52 @@ public class StreamLearn {
 
 
     public static void streamAbstractMethods() throws IOException {
-//        Modifier & Type || Method                                                                                        || Description
-//        Intermediate Operations
-//        Stream<T>       || filter(Predicate<? super T> predicate)                                                        || Returns a stream consisting of the elements of this stream that match the given predicate.
-//        <R> Stream<R>   || map(Function<? super T, ? extends R> mapper)                                                  || Returns a stream consisting of the results of applying the given function to the elements of this stream.
-//        IntStream       || mapToInt(ToIntFunction<? super T> mapper)                                                     || Returns an IntStream consisting of the results of applying the given function to the elements of this stream.
-//        LongStream      || mapToLong(ToLongFunction<? super T> mapper)                                                   || Returns a LongStream consisting of the results of applying the given function to the elements of this stream.
-//        DoubleStream    || mapToDouble(ToDoubleFunction<? super T> mapper)                                               || Returns a DoubleStream consisting of the results of applying the given function to the elements of this stream.
-//        <R> Stream<R>   || flatMap(Function<? super T, ? extends Stream<? extends R>> mapper)                            || Returns a stream consisting of the results of replacing each element of this stream with the contents of a mapped stream produced by applying the provided mapping function to each element.
-//        IntStream       || flatMapToInt(Function<? super T, ? extends IntStream> mapper)                                 || Returns an IntStream consisting of the results of replacing each element of this stream with the contents of a mapped stream produced by applying the provided mapping function to each element.
-//        LongStream      || flatMapToLong(Function<? super T, ? extends LongStream> mapper)                               || Returns an LongStream consisting of the results of replacing each element of this stream with the contents of a mapped stream produced by applying the provided mapping function to each element.
-//        DoubleStream    || flatMapToDouble(Function<? super T, ? extends DoubleStream> mapper)                           || Returns an DoubleStream consisting of the results of replacing each element of this stream with the contents of a mapped stream produced by applying the provided mapping function to each element.
-//        Stream<T>       || peek(Consumer<? super T> action)                                                              || Returns a stream consisting of the elements of this stream, additionally performing the provided action on each element as elements are consumed from the resulting stream.
+/*
+        Modifier & Type || Method                                                                                        || Description
+        Intermediate Operations
+        Stream<T>       || filter(Predicate<? super T> predicate)                                                        || Returns a stream consisting of the elements of this stream that match the given predicate.
+        <R> Stream<R>   || map(Function<? super T, ? extends R> mapper)                                                  || Returns a stream consisting of the results of applying the given function to the elements of this stream.
+        IntStream       || mapToInt(ToIntFunction<? super T> mapper)                                                     || Returns an IntStream consisting of the results of applying the given function to the elements of this stream.
+        LongStream      || mapToLong(ToLongFunction<? super T> mapper)                                                   || Returns a LongStream consisting of the results of applying the given function to the elements of this stream.
+        DoubleStream    || mapToDouble(ToDoubleFunction<? super T> mapper)                                               || Returns a DoubleStream consisting of the results of applying the given function to the elements of this stream.
+        <R> Stream<R>   || flatMap(Function<? super T, ? extends Stream<? extends R>> mapper)                            || Returns a stream consisting of the results of replacing each element of this stream with the contents of a mapped stream produced by applying the provided mapping function to each element.
+        IntStream       || flatMapToInt(Function<? super T, ? extends IntStream> mapper)                                 || Returns an IntStream consisting of the results of replacing each element of this stream with the contents of a mapped stream produced by applying the provided mapping function to each element.
+        LongStream      || flatMapToLong(Function<? super T, ? extends LongStream> mapper)                               || Returns an LongStream consisting of the results of replacing each element of this stream with the contents of a mapped stream produced by applying the provided mapping function to each element.
+        DoubleStream    || flatMapToDouble(Function<? super T, ? extends DoubleStream> mapper)                           || Returns an DoubleStream consisting of the results of replacing each element of this stream with the contents of a mapped stream produced by applying the provided mapping function to each element.
+        Stream<T>       || peek(Consumer<? super T> action)                                                              || Returns a stream consisting of the elements of this stream, additionally performing the provided action on each element as elements are consumed from the resulting stream.
 
-//        Stateful Intermediate Operation
-//        Stream<T>       || distinct()                                                                                    || Returns a stream consisting of the distinct elements (according to Object.equals(Object)) of this stream.
-//        Stream<T>       || sorted()                                                                                      || Returns a stream consisting of the elements of this stream, sorted according to natural order.
-//        Stream<T>       || sorted(Comparator<? super T> comparator)                                                      || Returns a stream consisting of the elements of this stream, sorted according to the provided Comparator.
-//        Stream<T>       || skip(long n)                                                                                  || Returns a stream consisting of the remaining elements of this stream after discarding the first n elements of the stream.
+        Stateful Intermediate Operation
+        Stream<T>       || distinct()                                                                                    || Returns a stream consisting of the distinct elements (according to Object.equals(Object)) of this stream.
+        Stream<T>       || sorted()                                                                                      || Returns a stream consisting of the elements of this stream, sorted according to natural order.
+        Stream<T>       || sorted(Comparator<? super T> comparator)                                                      || Returns a stream consisting of the elements of this stream, sorted according to the provided Comparator.
+        Stream<T>       || skip(long n)                                                                                  || Returns a stream consisting of the remaining elements of this stream after discarding the first n elements of the stream.
 
-//        Short-circuiting Stateful Intermediate Operation
-//        Stream<T>       || limit(long maxSize)                                                                           || Returns a stream consisting of the elements of this stream, truncated to be no longer than maxSize in length.
+        Short-circuiting Stateful Intermediate Operation
+        Stream<T>       || limit(long maxSize)                                                                           || Returns a stream consisting of the elements of this stream, truncated to be no longer than maxSize in length.
 
-//        Short-Circuiting Terminal Operation
-//        boolean         || allMatch(Predicate<? super T> predicate)                                                      || Returns whether all elements of this stream match the provided predicate.
-//        boolean         || anyMatch(Predicate<? super T> predicate)                                                      || Returns whether any elements of this stream match the provided predicate.
-//        boolean         || noneMatch(Predicate<? super T> predicate)                                                     || Returns whether no elements of this stream match the provided predicate.
-//        Optional<T>     || findAny()                                                                                     || Returns an Optional describing some element of the stream, or an empty Optional if the stream is empty.
-//        Optional<T>     || findFirst()                                                                                   || Returns an Optional describing the first element of this stream, or an empty Optional if the stream is empty.
+        Short-Circuiting Terminal Operation
+        boolean         || allMatch(Predicate<? super T> predicate)                                                      || Returns whether all elements of this stream match the provided predicate.
+        boolean         || anyMatch(Predicate<? super T> predicate)                                                      || Returns whether any elements of this stream match the provided predicate.
+        boolean         || noneMatch(Predicate<? super T> predicate)                                                     || Returns whether no elements of this stream match the provided predicate.
+        Optional<T>     || findAny()                                                                                     || Returns an Optional describing some element of the stream, or an empty Optional if the stream is empty.
+        Optional<T>     || findFirst()                                                                                   || Returns an Optional describing the first element of this stream, or an empty Optional if the stream is empty.
 
-//        Terminal Operation
-//        void            || forEach(Consumer<? super T> action)                                                           || Performs an action for each element of this stream.
-//        void            || forEachOrdered(Consumer<? super T> action)                                                    || Performs an action for each element of this stream, in the encounter order of the stream if the stream has a defined encounter order.
-//        Optional<T>     || max(Comparator<? super T> comparator)                                                         || Returns the maximum element of this stream according to the provided Comparator.
-//        Optional<T>     || min(Comparator<? super T> comparator)                                                         || Returns the minimum element of this stream according to the provided Comparator.
-//        long            || count()                                                                                       || Returns the count of elements in this stream.
-//        Object[]        || toArray()                                                                                     || Returns an array containing the elements of this stream.
-//        <A> A[]         || toArray(IntFunction<A[]> generator)                                                           || Returns an array containing the elements of this stream, using the provided generator function to allocate the returned array, as well as any additional arrays that might be required for a partitioned execution or for resizing.
-//        Optional<T>     || reduce(BinaryOperator<T> accumulator)                                                         || Performs a reduction on the elements of this stream, using an associative accumulation function, and returns an Optional describing the reduced value, if any.
-//        T               || reduce(T identity, BinaryOperator<T> accumulator)                                             || Performs a reduction on the elements of this stream, using the provided identity value and an associative accumulation function, and returns the reduced value.
-//        <U> U           || reduce(U identity, BiFunction<U, ? super T, U> accumulator, BinaryOperator<U> combiner)       || Performs a reduction on the elements of this stream, using the provided identity, accumulation and combining functions.
-//        <R,A> R         || collect(Collector<? super T, A, R> collector)                                                 || Performs a mutable reduction operation on the elements of this stream using a Collector.
-//        <R> R           || collect(Supplier<R> supplier, BiConsumer<R, ? super T> accumulator, BiConsumer<R,R> combiner) || Performs a mutable reduction operation on the elements of this stream.
+        Terminal Operation
+        void            || forEach(Consumer<? super T> action)                                                           || Performs an action for each element of this stream.
+        void            || forEachOrdered(Consumer<? super T> action)                                                    || Performs an action for each element of this stream, in the encounter order of the stream if the stream has a defined encounter order.
+        Optional<T>     || max(Comparator<? super T> comparator)                                                         || Returns the maximum element of this stream according to the provided Comparator.
+        Optional<T>     || min(Comparator<? super T> comparator)                                                         || Returns the minimum element of this stream according to the provided Comparator.
+        long            || count()                                                                                       || Returns the count of elements in this stream.
+        Object[]        || toArray()                                                                                     || Returns an array containing the elements of this stream.
+        <A> A[]         || toArray(IntFunction<A[]> generator)                                                           || Returns an array containing the elements of this stream, using the provided generator function to allocate the returned array, as well as any additional arrays that might be required for a partitioned execution or for resizing.
+        Optional<T>     || reduce(BinaryOperator<T> accumulator)                                                         || Performs a reduction on the elements of this stream, using an associative accumulation function, and returns an Optional describing the reduced value, if any.
+        T               || reduce(T identity, BinaryOperator<T> accumulator)                                             || Performs a reduction on the elements of this stream, using the provided identity value and an associative accumulation function, and returns the reduced value.
+        <U> U           || reduce(U identity, BiFunction<U, ? super T, U> accumulator, BinaryOperator<U> combiner)       || Performs a reduction on the elements of this stream, using the provided identity, accumulation and combining functions.
+        <R,A> R         || collect(Collector<? super T, A, R> collector)                                                 || Performs a mutable reduction operation on the elements of this stream using a Collector.
+        <R> R           || collect(Supplier<R> supplier, BiConsumer<R, ? super T> accumulator, BiConsumer<R,R> combiner) || Performs a mutable reduction operation on the elements of this stream.
+*/
 
         // Data
-
         List<Person> personList = readPersonData();
         List<Product> productList = generateProductData();
         List<Student> studentList = generateStudentData();
@@ -150,12 +151,14 @@ public class StreamLearn {
         emails.add("dida@yahoo.com");
         System.out.println(emails.stream().distinct().toList());
 
-        // sorted() - Stateful Intermediate Operation - Sort a list of Person objects by their last name.
-        // If you use sorted() without a comparator, it sorts the elements according to their natural order.
-        // This means the elements in the stream must implement the Comparable interface.
-        // For example, for a list of String, it sorts alphabetically; for numbers, numerically.
-        // If Person does not implement Comparable, using sorted() will throw a ClassCastException.
-        // System.out.println(personList.stream().sorted().toList()); // Exception in thread "main" java.lang.ClassCastException: class com.models.Person cannot be cast to class java.lang.Comparable
+        /*
+         sorted() - Stateful Intermediate Operation - Sort a list of Person objects by their last name.
+         If you use sorted() without a comparator, it sorts the elements according to their natural order.
+         This means the elements in the stream must implement the Comparable interface.
+         For example, for a list of String, it sorts alphabetically; for numbers, numerically.
+         If Person does not implement Comparable, using sorted() will throw a ClassCastException.
+         System.out.println(personList.stream().sorted().toList()); // Exception in thread "main" java.lang.ClassCastException: class com.models.Person cannot be cast to class java.lang.Comparable
+         */
         System.out.println(personList.stream().sorted(Comparator.comparing(Person::getSecondName)).toList()); // since secondName is of String Class which already implements Comparable there will not be any issue.
 
         // sorted(Comparator<? super T> comparator) - Stateful Intermediate Operation - Sort a list of Person objects by age descending.
@@ -227,10 +230,7 @@ public class StreamLearn {
         System.out.println(max.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).findFirst().get());
         // Optimized Code: Find product name with highest total sales (price * quantity)
         Map.Entry<String, Double> maxEntry = productList.stream()
-                .collect(Collectors.groupingBy(
-                        Product::getProductName,
-                        Collectors.summingDouble(p -> p.getPrice() * p.getQuantity())
-                ))
+                .collect(Collectors.groupingBy(Product::getProductName, Collectors.summingDouble(p -> p.getPrice() * p.getQuantity())))
                 .entrySet()
                 .stream()
                 .max(Map.Entry.comparingByValue())
@@ -249,13 +249,15 @@ public class StreamLearn {
         // revenue for all products, but only for products whose price is above 100 and quantity is at least 5.
         double ans = productList.stream().filter(product -> product.getQuantity()>=5 && product.getPrice()>100)
                 .mapToDouble(pr->pr.getPrice()*pr.getQuantity())
-                .reduce(0.0,Double::sum);
+                .reduce(0.0, Double::sum);
         System.out.println(ans);
 
-        // reduce(U identity, BiFunction<U,? super T, U> accumulator, BinaryOperator<U> combiner) => it a combination of .map + .collect
-        // You want to combine stream elements into a single result using an associative operation (e.g., sum, product, min, max, custom logic).
-        // The result is a single value (e.g., a number, a string, or a single object).
-        // Example: Summing numbers, finding the product, concatenating strings.
+        /*
+         reduce(U identity, BiFunction<U,? super T, U> accumulator, BinaryOperator<U> combiner) => it a combination of .map + .collect
+         You want to combine stream elements into a single result using an associative operation (e.g., sum, product, min, max, custom logic).
+         The result is a single value (e.g., a number, a string, or a single object).
+         Example: Summing numbers, finding the product, concatenating strings.
+         */
         BiFunction<ExportList, Product, ExportList> accumulator = (exportList, product) -> {
             exportList.getTotalItems().add(product.getProductName());
             exportList.setTotalPrice(exportList.getTotalPrice() + product.getPrice());
@@ -279,10 +281,12 @@ public class StreamLearn {
         Set<Person> uniquePerson = personList.stream().collect(Collectors.toSet());
         System.out.println(uniquePerson);
 
-        // collect(Supplier<? super T> supplier, BiConsumer<R, ? super T> accumulator, BiConsumer<R,R> combiner)
-        // You want to transform the stream into a mutable container or a complex result (e.g., List, Set, Map, custom objects).
-        // The result is a collection or a more complex structure, not just a single value.
-        // Example: Collecting elements into a list, grouping by a property, partitioning, summarizing statistics.
+        /*
+         collect(Supplier<? super T> supplier, BiConsumer<R, ? super T> accumulator, BiConsumer<R,R> combiner)
+         You want to transform the stream into a mutable container or a complex result (e.g., List, Set, Map, custom objects).
+         The result is a collection or a more complex structure, not just a single value.
+         Example: Collecting elements into a list, grouping by a property, partitioning, summarizing statistics.
+         */
         HashMap<String, String> mappedRes = personList.stream().collect(HashMap<String, String>::new,
                 (hashMap, person2) -> hashMap.put(person2.getFirstName(), person2.getSecondName()),
                 ((hashMap, hashMap2) -> hashMap.putAll(hashMap2)));
@@ -292,30 +296,34 @@ public class StreamLearn {
 
 
     public static void streamDefaultMethods() throws IOException {
-//        Modifier and Type     || Method                                                                   || Description
-//        default Stream<T>     || dropWhile(Predicate<? super T> predicate)                                || Returns, if this stream is ordered, a stream consisting of the remaining elements of this stream after dropping the longest prefix of elements that match the given predicate.
-//        default <R> Stream<R> || gather(Gatherer<? super T, ?, R> gatherer)                               || Returns a stream consisting of the results of applying the given Gatherer to the elements of this stream.
-//        default <R> Stream<R> || mapMulti(BiConsumer<? super T, ? super Consumer<R>> mapper)              || Returns a stream consisting of the results of replacing each element of this stream with multiple elements, specifically zero or more elements.
-//        default DoubleStream  || mapMultiToDouble(BiConsumer<? super T, ? super DoubleConsumer> mapper)   || Returns a DoubleStream consisting of the results of replacing each element of this stream with multiple elements, specifically zero or more elements.
-//        default IntStream     || mapMultiToInt(BiConsumer<? super T, ? super IntConsumer> mapper)         || Returns an IntStream consisting of the results of replacing each element of this stream with multiple elements, specifically zero or more elements.
-//        default LongStream    || mapMultiToLong(BiConsumer<? super T, ? super LongConsumer> mapper)       || Returns a LongStream consisting of the results of replacing each element of this stream with multiple elements, specifically zero or more elements.
-//        default Stream<T>     || takeWhile(Predicate<? super T> predicate)                                || Returns, if this stream is ordered, a stream consisting of the longest prefix of elements taken from this stream that match the given predicate.
-//        default List<T>       || toList()                                                                 || Accumulates the elements of this stream into a List.
+/*
+        Modifier and Type     || Method                                                                   || Description
+        default Stream<T>     || dropWhile(Predicate<? super T> predicate)                                || Returns, if this stream is ordered, a stream consisting of the remaining elements of this stream after dropping the longest prefix of elements that match the given predicate.
+        default <R> Stream<R> || gather(Gatherer<? super T, ?, R> gatherer)                               || Returns a stream consisting of the results of applying the given Gatherer to the elements of this stream.
+        default <R> Stream<R> || mapMulti(BiConsumer<? super T, ? super Consumer<R>> mapper)              || Returns a stream consisting of the results of replacing each element of this stream with multiple elements, specifically zero or more elements.
+        default DoubleStream  || mapMultiToDouble(BiConsumer<? super T, ? super DoubleConsumer> mapper)   || Returns a DoubleStream consisting of the results of replacing each element of this stream with multiple elements, specifically zero or more elements.
+        default IntStream     || mapMultiToInt(BiConsumer<? super T, ? super IntConsumer> mapper)         || Returns an IntStream consisting of the results of replacing each element of this stream with multiple elements, specifically zero or more elements.
+        default LongStream    || mapMultiToLong(BiConsumer<? super T, ? super LongConsumer> mapper)       || Returns a LongStream consisting of the results of replacing each element of this stream with multiple elements, specifically zero or more elements.
+        default Stream<T>     || takeWhile(Predicate<? super T> predicate)                                || Returns, if this stream is ordered, a stream consisting of the longest prefix of elements taken from this stream that match the given predicate.
+        default List<T>       || toList()                                                                 || Accumulates the elements of this stream into a List.
+*/
 
     }
 
     public static void streamStaticMethods() throws IOException {
 
 
-//        static <T> Stream.Builder<T> || builder()                                                             || Returns a builder for a Stream.
-//        static <T> Stream<T>         || concat(Stream<? extends T> a, Stream<? extends T> b)                  || Creates a lazily concatenated stream whose elements are all the elements of the first stream followed by all the elements of the second stream.
-//        static <T> Stream<T>         || empty()                                                               || Returns an empty sequential Stream.
-//        static <T> Stream<T>         || generate(Supplier<? extends T> s)                                     || Returns an infinite sequential unordered stream where each element is generated by the provided Supplier.
-//        static <T> Stream<T>         || iterate(T seed, Predicate<? super T> hasNext, UnaryOperator<T> next)  || Returns a sequential ordered Stream produced by iterative application of the given next function to an initial element, conditioned on satisfying the given hasNext predicate.
-//        static <T> Stream<T>         || iterate(T seed, UnaryOperator<T> f)                                   || Returns an infinite sequential ordered Stream produced by iterative application of a function f to an initial element seed, producing a Stream consisting of seed, f(seed), f(f(seed)), etc.
-//        static <T> Stream<T>         || of(T t)                                                               || Returns a sequential Stream containing a single element.
-//        static <T> Stream<T>         || of(T... values)                                                       || Returns a sequential ordered stream whose elements are the specified values.
-//        static <T> Stream<T>         || ofNullable(T t)                                                       || Returns a sequential Stream containing a single element, if non-null, otherwise returns an empty Stream.
+        /*
+        static <T> Stream.Builder<T> || builder()                                                             || Returns a builder for a Stream.
+        static <T> Stream<T>         || concat(Stream<? extends T> a, Stream<? extends T> b)                  || Creates a lazily concatenated stream whose elements are all the elements of the first stream followed by all the elements of the second stream.
+        static <T> Stream<T>         || empty()                                                               || Returns an empty sequential Stream.
+        static <T> Stream<T>         || generate(Supplier<? extends T> s)                                     || Returns an infinite sequential unordered stream where each element is generated by the provided Supplier.
+        static <T> Stream<T>         || iterate(T seed, Predicate<? super T> hasNext, UnaryOperator<T> next)  || Returns a sequential ordered Stream produced by iterative application of the given next function to an initial element, conditioned on satisfying the given hasNext predicate.
+        static <T> Stream<T>         || iterate(T seed, UnaryOperator<T> f)                                   || Returns an infinite sequential ordered Stream produced by iterative application of a function f to an initial element seed, producing a Stream consisting of seed, f(seed), f(f(seed)), etc.
+        static <T> Stream<T>         || of(T t)                                                               || Returns a sequential Stream containing a single element.
+        static <T> Stream<T>         || of(T... values)                                                       || Returns a sequential ordered stream whose elements are the specified values.
+        static <T> Stream<T>         || ofNullable(T t)                                                       || Returns a sequential Stream containing a single element, if non-null, otherwise returns an empty Stream.
+        */
 
 //        List<Person> personList = generatePersonData();
         List<Person> personList = readPersonData();
@@ -377,7 +385,7 @@ public class StreamLearn {
         Map<Long, List<Map.Entry<Long, Long>>> distanceToPalindromeMap = palindromes.entrySet().stream().collect(Collectors.groupingBy(Map.Entry::getValue));
 
 //        distanceToPalindromeMap.entrySet().stream().sorted(Comparator.comparing(Map.Entry::getKey)).toList().get(kPosition);
-        Map.Entry<Long, List<Map.Entry<Long, Long>>> actualValue = distanceToPalindromeMap.entrySet().stream().sorted(Map.Entry.comparingByKey(Comparator.naturalOrder())).toList().get(kPosition-1);
+        Map.Entry<Long, List<Map.Entry<Long, Long>>> actualValue = distanceToPalindromeMap.entrySet().stream().sorted(Map.Entry.comparingByKey(Comparator.naturalOrder())).skip(kPosition-1).findFirst().get();
         Long ans = 0L;
 
         // 3 ways to achieve same result
